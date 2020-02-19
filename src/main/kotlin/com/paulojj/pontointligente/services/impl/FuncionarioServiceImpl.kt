@@ -2,7 +2,9 @@ package com.paulojj.pontointligente.services.impl
 
 import com.paulojj.pontointligente.documents.Funcionario
 import com.paulojj.pontointligente.services.FuncionarioService
+import org.springframework.stereotype.Service
 
+@Service
 class FuncionarioServiceImpl : FuncionarioService {
     override fun persistir(funcionario: Funcionario): Funcionario {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
