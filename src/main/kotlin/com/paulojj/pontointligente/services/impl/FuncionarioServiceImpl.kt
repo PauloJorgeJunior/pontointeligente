@@ -1,24 +1,19 @@
 package com.paulojj.pontointligente.services.impl
 
 import com.paulojj.pontointligente.documents.Funcionario
+import com.paulojj.pontointligente.repositories.FuncionarioRepository
 import com.paulojj.pontointligente.services.FuncionarioService
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
-class FuncionarioServiceImpl : FuncionarioService {
-    override fun persistir(funcionario: Funcionario): Funcionario {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class FuncionarioServiceImpl(val funcionarioRepository: FuncionarioRepository) : FuncionarioService {
+    override fun persistir(funcionario: Funcionario): Funcionario =
+            funcionarioRepository.save(funcionario)
 
-    override fun buscaPorCpf(cpf: String): Funcionario? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun buscaPorCpf(cpf: String): Funcionario? = funcionarioRepository.findByCpf(cpf)
 
-    override fun buscaPorEmail(email: String): Funcionario? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun buscaPorEmail(email: String): Funcionario? = funcionarioRepository.findByEmail(email)
 
-    override fun buscaPorId(id: String): Funcionario? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun buscaPorId(id: String): Optional<Funcionario> = funcionarioRepository.findById(id)
 }
