@@ -8,6 +8,9 @@ import com.paulojj.pontointligente.response.Response
 import com.paulojj.pontointligente.services.FuncionarioService
 import com.paulojj.pontointligente.services.LancamentoService
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
 import org.springframework.validation.ObjectError
@@ -58,7 +61,18 @@ class LancamentoController(val lancamentoService: LancamentoService,
     }
 
     @GetMapping(value = ["/funcionario/{funcionarioId}"])
-    fun lis
+    fun listarPorFuncionarioId(@PathVariable funcionarioId: String,
+                               @RequestParam(value = "pag", defaultValue = "0") pag: Int,
+                               @RequestParam(value = "ord", defaultValue = "id") ord: String,
+                               @RequestParam(value = "dir", defaultValue = "DESC") dir: String):
+            ResponseEntity<Response<Page<LancamentoDto>>> {
+        val response: Response<Page<LancamentoDto>> = Response<Page<LancamentoDto>>()
+        val pageRequest: PageRequest = PageRequest.of(pag, qtdPorPagina, Sort.Direction.valueOf(dir), ord)
+        val lancamentos: Page<Lancamento> = lancamentoService.buscarPorFuncionarioId(funcionarioId, pageRequest)
+        val lancamentosDto: Page<LancamentoDto> = lancamentos.map { lancamento -> converterLancamentoDto(lancamento) }
+        response.data = lancamentosDto
+        return ResponseEntity.ok(response)
+    }
 
     private fun converterLancamentoDto(lancamento: Lancamento): LancamentoDto = LancamentoDto(
             dateFormat.format(lancamento.data),
