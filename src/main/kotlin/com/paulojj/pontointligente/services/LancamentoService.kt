@@ -7,7 +7,7 @@ import java.util.*
 
 interface LancamentoService {
     fun buscarPorFuncionarioId(funcionarioId: String, pageRequest: PageRequest): Page<Lancamento>
-    fun budcarPorId(id: String): Optional<Lancamento>
+    fun buscarPorId(id: String): Optional<Lancamento>
     fun persistir(lancamento: Lancamento): Lancamento
     fun remover(id: String)
 }

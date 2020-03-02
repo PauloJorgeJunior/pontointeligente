@@ -49,7 +49,7 @@ class LancamentoServiceTest {
 
     @Test
     fun testBuscarLancamentoPorId() {
-        val lancamento: Optional<Lancamento>? = lancamentoService?.budcarPorId(id)
+        val lancamento: Optional<Lancamento>? = lancamentoService?.buscarPorId(id)
         assertNotNull(lancamento)
     }
 
